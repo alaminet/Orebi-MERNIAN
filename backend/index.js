@@ -7,6 +7,8 @@ const mongoConfig = require("./config/mongoConfig");
 // dbConnection
 mongoConfig();
 
+app.use(express.json());
+
 // router
 app.use(process.env.API_URL, route);
 
