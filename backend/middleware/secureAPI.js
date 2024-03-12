@@ -3,6 +3,7 @@ const secureAPI = (req, res, next) => {
     console.log("API Checked");
     next();
   } else {
+    res.status(401);
     res.send({ error: "Invalid API" });
   }
 };
