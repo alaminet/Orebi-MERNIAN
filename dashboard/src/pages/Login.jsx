@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const OTPVerification = () => {
+const Login = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
-  const params = useParams();
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -16,10 +15,10 @@ const OTPVerification = () => {
     try {
       setLoadings(true);
       const data = await axios.post(
-        "http://localhost:8000/v1/api/auth/matchOTP",
+        "http://localhost:8000/v1/api/auth/login",
         {
-          email: params.email,
-          otp: values.otp,
+          email: values.email,
+          password: values.password,
         },
         {
           headers: {
@@ -28,24 +27,30 @@ const OTPVerification = () => {
         }
       );
       setLoadings(false);
-      setMsg("OTP Matched");
+      setMsg("Successfull logged in");
       setMsgType("success");
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1500);
     } catch (error) {
       setLoadings(false);
-      setMsg("Invalid OTP, Please check your email!");
+      setMsg(error.response.data.error);
       setMsgType("error");
+
+      if (error.response.data.error === "Please Verify your OTP") {
+        setTimeout(() => {
+          navigate(`/otpverification/${values.email}`);
+        }, 1500);
+      }
     }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
   return (
     <>
       {msg && <Alert message={msg} type={msgType} showIcon closable />}
+
       <div>
         <Form
           name="basic"
@@ -66,16 +71,29 @@ const OTPVerification = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="OTP"
-            name="otp"
+            label="Email"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Please enter your OTP!",
+                message: "Please input your Email!",
               },
             ]}
           >
             <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password />
           </Form.Item>
 
           <Form.Item
@@ -99,4 +117,4 @@ const OTPVerification = () => {
   );
 };
 
-export default OTPVerification;
+export default Login;

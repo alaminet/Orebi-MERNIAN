@@ -37,13 +37,8 @@ const Registration = () => {
       setMsg(data.data.error);
       setMsgType("error");
     }
-
-    console.log(data);
   };
   const onFinishFailed = (errorInfo) => {
-    setLoadings(false);
-    setMsg(errorInfo);
-    setMsgType("error");
     console.log("Failed:", errorInfo);
   };
   return (

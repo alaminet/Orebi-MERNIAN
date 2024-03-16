@@ -4,7 +4,7 @@ async function matchOTPController(req, res) {
   const { otp, email } = req.body;
   const existingUser = await User.find({ email });
 
-  if (existingUser[0].otp === otp) {
+  if (!existingUser[0].verify && existingUser[0].otp === otp) {
     const removeOTP = await User.findOneAndUpdate(
       { email },
       { $unset: { otp: "" }, $set: { verify: true } },
