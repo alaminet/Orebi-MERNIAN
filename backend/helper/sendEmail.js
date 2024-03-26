@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 
-async function sendEmail(email, verify, template) {
+async function sendEmail(email, verify, link, template) {
+  const refLink = `http://localhost:5173/emailverify/${link}`;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -14,7 +15,7 @@ async function sendEmail(email, verify, template) {
     from: `"Orebi"`, // sender address
     to: email, // list of receivers
     subject: "OTP Verification-Orebi E-commerce", // Subject line
-    html: template(verify), // html body
+    html: template(verify, refLink), // html body
   });
 
   console.log("Message sent");

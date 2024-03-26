@@ -9,6 +9,7 @@ import OTPVerification from "./pages/OTPVerification";
 import RootLayout from "../components/RootLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ResendVerify from "./pages/ResendVerify";
 
 function App() {
   const router = createBrowserRouter(
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
+        <Route path="/resendverify" element={<ResendVerify />}></Route>
         <Route
           path="/otpverification/:email"
           element={<OTPVerification />}
