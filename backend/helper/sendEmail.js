@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 async function sendEmail(email, verify, link, template) {
-  const refLink = `http://localhost:5173/emailverify/${link}`;
+  const refLink = `http://localhost:5173/linkVerification/${link}`;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
