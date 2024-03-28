@@ -11,7 +11,10 @@ async function matchForgotPassController(req, res) {
     bcrypt.hash(password, 10, async function (err, hash) {
       const updatePass = await User.findOneAndUpdate(
         { email },
-        { $unset: { token: "" }, $set: { password: password } },
+        {
+          $unset: { otp: "", token: "" },
+          $set: { password: hash, verify: true },
+        },
         { new: true }
       );
       updatePass.save();
