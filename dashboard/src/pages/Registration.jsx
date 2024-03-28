@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [loadings, setLoadings] = useState(false);
@@ -108,6 +108,7 @@ const Registration = () => {
               offset: 8,
               span: 16,
             }}
+            style={{ marginBottom: "0px" }}
           >
             <Button
               type="primary"
@@ -117,6 +118,14 @@ const Registration = () => {
             >
               Submit
             </Button>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <NavLink to={"/login"}>Already You have an Account?</NavLink>
           </Form.Item>
         </Form>
       </div>

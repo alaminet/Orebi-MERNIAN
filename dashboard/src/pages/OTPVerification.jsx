@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 const OTPVerification = () => {
   const [loadings, setLoadings] = useState(false);
@@ -83,6 +83,7 @@ const OTPVerification = () => {
               offset: 8,
               span: 16,
             }}
+            style={{ marginBottom: "0px" }}
           >
             <Button
               type="primary"
@@ -92,6 +93,14 @@ const OTPVerification = () => {
             >
               Submit
             </Button>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <NavLink to={"/resendverify"}>Resend Your OTP!</NavLink>
           </Form.Item>
         </Form>
       </div>

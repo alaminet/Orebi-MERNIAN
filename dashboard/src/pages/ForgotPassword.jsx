@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-const LinkVerification = () => {
+const ForgotPassord = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
@@ -16,10 +16,9 @@ const LinkVerification = () => {
     try {
       setLoadings(true);
       const data = await axios.post(
-        "http://localhost:8000/v1/api/auth/matchEmail",
+        "http://localhost:8000/v1/api/auth/forgotPass",
         {
           email: values.email,
-          token: params.token,
         },
         {
           headers: {
@@ -28,7 +27,7 @@ const LinkVerification = () => {
         }
       );
       setLoadings(false);
-      setMsg("Email Matched");
+      setMsg(data.message);
       setMsgType("success");
       setTimeout(() => {
         navigate("/login");
@@ -36,7 +35,7 @@ const LinkVerification = () => {
     } catch (error) {
       console.log(error);
       setLoadings(false);
-      setMsg("Invalid email, Please try again");
+      setMsg(error.response.data.message);
       setMsgType("error");
     }
   };
@@ -83,6 +82,7 @@ const LinkVerification = () => {
               offset: 8,
               span: 16,
             }}
+            style={{ marginBottom: "0px" }}
           >
             <Button
               type="primary"
@@ -93,10 +93,18 @@ const LinkVerification = () => {
               Submit
             </Button>
           </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <NavLink to={"/registration"}>You haven't an Account?</NavLink>
+          </Form.Item>
         </Form>
       </div>
     </>
   );
 };
 
-export default LinkVerification;
+export default ForgotPassord;

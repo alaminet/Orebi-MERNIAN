@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResendVerify from "./pages/ResendVerify";
 import LinkVerification from "./pages/LinkVerification";
+import ForgotPassord from "./pages/ForgotPassword";
+import UpdatePass from "./pages/UpdatePass";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,6 +30,8 @@ function App() {
           path="/otpverification/:email"
           element={<OTPVerification />}
         ></Route>
+        <Route path="/forgotpassord" element={<ForgotPassord />}></Route>
+        <Route path="/updatepass/:token" element={<UpdatePass />}></Route>
       </Route>
     )
   );

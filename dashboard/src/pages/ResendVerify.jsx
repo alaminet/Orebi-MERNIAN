@@ -31,7 +31,7 @@ const ResendVerify = () => {
       setMsgType("success");
     } catch (error) {
       setLoadings(false);
-      setMsg("Invalid email!");
+      setMsg(error.response.data.message);
       setMsgType("error");
     }
   };

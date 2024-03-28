@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loadings, setLoadings] = useState(false);
@@ -36,7 +36,6 @@ const Login = () => {
       setLoadings(false);
       setMsg(error.response.data.error);
       setMsgType("error");
-
       if (error.response.data.error === "Please Verify your OTP") {
         setTimeout(() => {
           navigate(`/otpverification/${values.email}`);
@@ -101,6 +100,7 @@ const Login = () => {
               offset: 8,
               span: 16,
             }}
+            style={{ marginBottom: "0px" }}
           >
             <Button
               type="primary"
@@ -108,8 +108,24 @@ const Login = () => {
               loading={loadings}
               disabled={loadings}
             >
-              Submit
+              Login
             </Button>
+            <Button
+              style={{ marginLeft: "10px" }}
+              type="primary"
+              htmlType="button"
+              onClick={() => navigate("/registration")}
+            >
+              Sign Up
+            </Button>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <NavLink to={"/forgotpassord"}>Forgot your password?</NavLink>
           </Form.Item>
         </Form>
       </div>

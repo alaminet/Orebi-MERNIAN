@@ -3,7 +3,7 @@ import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const LinkVerification = () => {
+const UpdatePass = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
@@ -16,10 +16,11 @@ const LinkVerification = () => {
     try {
       setLoadings(true);
       const data = await axios.post(
-        "http://localhost:8000/v1/api/auth/matchEmail",
+        "http://localhost:8000/v1/api/auth/matchPass",
         {
           email: values.email,
           token: params.token,
+          password: values.password,
         },
         {
           headers: {
@@ -28,7 +29,7 @@ const LinkVerification = () => {
         }
       );
       setLoadings(false);
-      setMsg("Email Matched");
+      setMsg(data.message);
       setMsgType("success");
       setTimeout(() => {
         navigate("/login");
@@ -36,7 +37,7 @@ const LinkVerification = () => {
     } catch (error) {
       console.log(error);
       setLoadings(false);
-      setMsg("Invalid email, Please try again");
+      setMsg(error.response.data.message);
       setMsgType("error");
     }
   };
@@ -77,6 +78,18 @@ const LinkVerification = () => {
           >
             <Input />
           </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
           <Form.Item
             wrapperCol={{
@@ -98,5 +111,4 @@ const LinkVerification = () => {
     </>
   );
 };
-
-export default LinkVerification;
+export default UpdatePass;
