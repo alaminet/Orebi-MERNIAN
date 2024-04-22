@@ -8,6 +8,7 @@ const mongoConfig = require("./config/mongoConfig");
 // dbConnection
 mongoConfig();
 
+// middleware
 app.use(cors());
 app.use(express.json());
 
