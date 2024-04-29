@@ -13,12 +13,35 @@ import ResendVerify from "./pages/ResendVerify";
 import LinkVerification from "./pages/LinkVerification";
 import ForgotPassord from "./pages/ForgotPassword";
 import UpdatePass from "./pages/UpdatePass";
+import AddCategory from "../components/AddCategory";
+import AddUser from "../components/AddUser";
+import ViewUser from "../components/ViewUser";
+import AddProduct from "../components/AddProduct";
+import ViewProduct from "../components/ViewProduct";
+import ViewCategory from "../components/ViewCategory";
+import AddDiscount from "../components/AddDiscount";
+import ViewDiscount from "../components/ViewDiscount";
+import Setting from "../components/Setting";
+import AddSubCategory from "../components/AddSubCategory";
+import ViewSubCategory from "../components/ViewSubCategory";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />}></Route>
+      <Route element={<RootLayout />}>
+        <Route path="/" element={<Home />}>
+          <Route path="adduser" element={<AddUser />}></Route>
+          <Route path="viewuser" element={<ViewUser />}></Route>
+          <Route path="addproduct" element={<AddProduct />}></Route>
+          <Route path="viewproduct" element={<ViewProduct />}></Route>
+          <Route path="addcategory" element={<AddCategory />}></Route>
+          <Route path="viewcategory" element={<ViewCategory />}></Route>
+          <Route path="addsubcategory" element={<AddSubCategory />}></Route>
+          <Route path="viewsubcategory" element={<ViewSubCategory />}></Route>
+          <Route path="adddiscount" element={<AddDiscount />}></Route>
+          <Route path="viewdiscount" element={<ViewDiscount />}></Route>
+          <Route path="setting" element={<Setting />}></Route>
+        </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
         <Route path="/resendverify" element={<ResendVerify />}></Route>
