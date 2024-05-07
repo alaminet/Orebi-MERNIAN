@@ -15,6 +15,9 @@ app.use(express.json());
 // router
 app.use(process.env.API_URL, route);
 
+// show static file
+app.use("/upload", express.static("upload"));
+
 app.get("/", function (req, res) {
   res.send("Home folder");
 });

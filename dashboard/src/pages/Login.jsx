@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Alert, Button, Form, Input } from "antd";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Loginuser } from "../Slice/UserSlice";
 
 const Login = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
     try {
       setLoadings(true);
@@ -29,6 +32,8 @@ const Login = () => {
       setLoadings(false);
       setMsg("Successfull logged in");
       setMsgType("success");
+      dispatch(Loginuser(data.data));
+      localStorage.setItem("user", JSON.stringify(data.data));
       setTimeout(() => {
         navigate("/");
       }, 1500);

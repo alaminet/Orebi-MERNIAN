@@ -12,9 +12,7 @@ async function loginController(req, res) {
         existingUser[0].password,
         function (err, result) {
           if (result) {
-            return res.json({
-              success: "Login Successfull",
-            });
+            return res.status(200).send(existingUser[0]);
           } else {
             return res.status(401).send({
               error: "Password not matched",

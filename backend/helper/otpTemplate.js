@@ -1,4 +1,4 @@
-function otpTemplate(otp, link) {
+function otpTemplate(otp) {
   // <p>Your OTP is ${otp.otp}</p>
 
   return `
@@ -25,7 +25,7 @@ function otpTemplate(otp, link) {
               </div>
               </br>
               <p style="margin-bottom:0;font-weight:600">Or click this button to confirm your email:</p>
-              <a href="${link}"><button style="padding:15px 20px;color:#fff;background-color:#007bff;border-style:none;border-radius:5px;font-size:16px">Confirm your email</button></a>
+              <a href="#"><button style="padding:15px 20px;color:#fff;background-color:#007bff;border-style:none;border-radius:5px;font-size:16px">Confirm your email</button></a>
               <p style="font-style:italic;color:#555555">If you didn't create an account in Orebi-Ecommmerce, please ignore this message.</p><div class="yj6qo"></div><div class="adL">
           </div>
       </div>

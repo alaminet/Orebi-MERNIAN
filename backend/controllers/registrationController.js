@@ -38,9 +38,7 @@ const registrationController = async (req, res) => {
       sendEmail(email, user.otp, otpTemplate);
 
       res.send({
-        name: user.name,
-        email: user.email,
-        otp: user.otp,
+        massage: "Registration Successful",
       });
     });
   }

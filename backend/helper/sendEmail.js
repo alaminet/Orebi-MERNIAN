@@ -1,10 +1,10 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
-async function sendEmail(email, verify, link, template) {
-  const httpLink = process.env.HTTPS;
+async function sendEmail(email, verify, template) {
+  // const httpLink = process.env.HTTPS;
 
-  const refLink = `${httpLink}linkverification/${link}`;
+  // const refLink = `${httpLink}linkverification/${link}`;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -18,7 +18,7 @@ async function sendEmail(email, verify, link, template) {
     from: `"Orebi"`, // sender address
     to: email, // list of receivers
     subject: "OTP Verification-Orebi E-commerce", // Subject line
-    html: template(verify, refLink), // html body
+    html: template(verify), // html body
   });
 
   console.log("Message sent");

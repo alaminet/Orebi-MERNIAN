@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Flex, Button, Form, Input, Alert } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
   const [loadings, setLoadings] = useState(false);
@@ -27,6 +26,9 @@ const AddCategory = () => {
       setLoadings(false);
       setMsg(data.data.message);
       setMsgType("success");
+      setTimeout(() => {
+        setMsg("");
+      }, 1500);
     } catch (error) {
       console.log(error);
       setLoadings(false);

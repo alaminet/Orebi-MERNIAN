@@ -8,7 +8,7 @@ import {
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const SideMenu = () => {
+const SideMenu = ({ user }) => {
   const navigate = useNavigate();
   function getItem(label, key, icon, children, type) {
     return {
@@ -19,7 +19,8 @@ const SideMenu = () => {
       type,
     };
   }
-  const items = [
+
+  const adminItems = [
     getItem("Users", "sub1", <UserOutlined />, [
       getItem("Add User", "adduser"),
       getItem("View User", "viewuser"),
@@ -47,6 +48,27 @@ const SideMenu = () => {
     ),
   ];
 
+  const userItems = [
+    getItem("Products", "sub2", <AppstoreOutlined />, [
+      getItem("Add Product", "addproduct"),
+      getItem("View Product", "viewproduct"),
+    ]),
+    getItem("Category", "sub4", <ApartmentOutlined />, [
+      getItem("Add Category", "addcategory"),
+      getItem("View Category", "viewcategory"),
+      getItem("Add Sub-Category", "addsubcategory"),
+      getItem("View Sub-Category", "viewsubcategory"),
+    ]),
+
+    getItem(
+      "",
+      "sub6",
+      null,
+      [getItem("Settings", "setting"), getItem("Logout", "")],
+      "group"
+    ),
+  ];
+
   const onClick = (e) => {
     navigate(e.key);
   };
@@ -60,7 +82,7 @@ const SideMenu = () => {
         // defaultSelectedKeys={["1"]}
         // defaultOpenKeys={["sub1"]}
         mode="inline"
-        items={items}
+        items={user.role === "admin" ? adminItems : userItems}
       />
     </>
   );
