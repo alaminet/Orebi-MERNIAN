@@ -52,7 +52,7 @@ const AddCategory = () => {
         >
           <div>
             <Form
-              name="basic"
+              name="categoryForm"
               labelCol={{
                 span: 10,
               }}

@@ -4,7 +4,6 @@ import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const AddProduct = () => {
-  const [form] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
@@ -56,7 +55,6 @@ const AddProduct = () => {
         >
           <div>
             <Form
-              form={form}
               name="productForm"
               labelCol={{
                 span: 10,

@@ -5,7 +5,7 @@ async function addProductController(req, res) {
   try {
     const addProduct = await new Product({
       title: title,
-      image: `/upload/images/profile/${req.file.filename}`,
+      image: `/uploads/${req.file.filename}`,
     });
     await addProduct.save();
     res.status(200).json({ addProduct, message: "Product Added !" });
