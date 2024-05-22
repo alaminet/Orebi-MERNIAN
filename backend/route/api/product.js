@@ -6,6 +6,7 @@ const addSubCategoryController = require("../../controllers/addSubCategoryContro
 const viewSubCategoryController = require("../../controllers/viewSubCategoryController");
 const viewCategoryController = require("../../controllers/viewCategoryController");
 const addProductController = require("../../controllers/addProductController");
+const viewProductController = require("../../controllers/viewProductController");
 
 const route = express.Router();
 
@@ -24,6 +25,7 @@ const upload = multer({ storage: storage });
 //   end multer setup
 
 route.post("/addproduct", upload.single("prductImg"), addProductController);
+route.get("/viewproduct", secureAPI, viewProductController);
 route.post("/addcategory", secureAPI, addCategoryController);
 route.post("/addsubcategory", secureAPI, addSubCategoryController);
 
