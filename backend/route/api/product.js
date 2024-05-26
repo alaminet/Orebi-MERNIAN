@@ -7,6 +7,9 @@ const viewSubCategoryController = require("../../controllers/viewSubCategoryCont
 const viewCategoryController = require("../../controllers/viewCategoryController");
 const addProductController = require("../../controllers/addProductController");
 const viewProductController = require("../../controllers/viewProductController");
+const categoryStatusController = require("../../controllers/CategoryStatusController");
+const deleteCategoryController = require("../../controllers/deleteCategoryController");
+const editCategoryController = require("../../controllers/editCategoryController");
 
 const route = express.Router();
 
@@ -26,8 +29,12 @@ const upload = multer({ storage: storage });
 
 route.post("/addproduct", upload.single("prductImg"), addProductController);
 route.get("/viewproduct", secureAPI, viewProductController);
+
 route.post("/addcategory", secureAPI, addCategoryController);
 route.post("/addsubcategory", secureAPI, addSubCategoryController);
+route.post("/categorystatus", secureAPI, categoryStatusController);
+route.post("/editcategory", secureAPI, editCategoryController);
+route.delete("/categorydelete/:id", secureAPI, deleteCategoryController);
 
 route.get("/catlist", secureAPI, viewCategoryController);
 route.get("/subcatlist", secureAPI, viewSubCategoryController);
