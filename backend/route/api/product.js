@@ -13,6 +13,9 @@ const editCategoryController = require("../../controllers/editCategoryController
 const subCategoryStatusController = require("../../controllers/subCategoryStatusController");
 const deleteSubCategoryController = require("../../controllers/deleteSubCategoryController");
 const editSubCategoryController = require("../../controllers/eidtSubCategoryController");
+const productStatusController = require("../../controllers/productStatusController");
+const deleteProductController = require("../../controllers/deleteProductController");
+const editProductController = require("../../controllers/editProductController");
 
 const route = express.Router();
 
@@ -32,6 +35,9 @@ const upload = multer({ storage: storage });
 
 route.post("/addproduct", upload.single("prductImg"), addProductController);
 route.get("/viewproduct", secureAPI, viewProductController);
+route.post("/productstatus", secureAPI, productStatusController);
+route.delete("/productdelete/:id", secureAPI, deleteProductController);
+route.post("/editproduct", secureAPI, editProductController);
 
 route.post("/addcategory", secureAPI, addCategoryController);
 route.post("/addsubcategory", secureAPI, addSubCategoryController);

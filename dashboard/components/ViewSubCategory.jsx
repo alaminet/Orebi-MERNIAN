@@ -106,6 +106,10 @@ const ViewSubCategory = () => {
   // Table Arrangement
   const columns = [
     {
+      title: "SL",
+      dataIndex: "dataIndex",
+    },
+    {
       title: "Sub-Category",
       dataIndex: "subcategory",
     },
@@ -167,10 +171,13 @@ const ViewSubCategory = () => {
       let allSubCatList = [];
       subCatList?.data.map((item, i) => {
         allSubCatList.push({
-          dataIndex: i,
-          subcategory: item.name,
-          category: item.categoryID.name,
-          status: item.status,
+          dataIndex: ++i,
+          subcategory: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+          category:
+            item.categoryID.name.charAt(0).toUpperCase() +
+            item.categoryID.name.slice(1),
+          status: item.status.charAt(0).toUpperCase() +
+          item.status.slice(1),
           action: item,
         });
       });

@@ -69,7 +69,7 @@ const ViewCategory = () => {
 
   // Category Edit
   const handleEdit = (values) => {
-    console.log(values);
+    // console.log(values);
     setIsModalOpen(true);
     editForm.setFieldsValue({
       id: values.action._id,
@@ -77,7 +77,7 @@ const ViewCategory = () => {
     });
   };
   const onFinish = async (values) => {
-    console.log(values);
+    // console.log(values);
     setIsModalOpen(false);
     try {
       const catStatus = await axios.post(
@@ -105,6 +105,10 @@ const ViewCategory = () => {
 
   // Table arrangement
   const columns = [
+    {
+      title: "SL",
+      dataIndex: "dataIndex",
+    },
     {
       title: "Name",
       dataIndex: "name",
@@ -163,9 +167,9 @@ const ViewCategory = () => {
       let allCatList = [];
       catList?.data.map((item, i) => {
         allCatList.push({
-          dataIndex: i,
-          name: item.name,
-          status: item.status,
+          dataIndex: ++i,
+          name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+          status: item.status.charAt(0).toUpperCase() + item.status.slice(1),
           action: item,
         });
       });

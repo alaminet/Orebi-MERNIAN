@@ -7,8 +7,8 @@ const productSchema = new Schema({
   image: String,
   status: {
     type: String,
-    enum: ["hold", "approve"],
-    default: "hold",
+    enum: ["waiting", "approve", "reject"],
+    default: "waiting",
   },
 });
 
