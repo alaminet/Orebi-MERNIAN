@@ -9,9 +9,9 @@ async function addProductController(req, res) {
       image: `/uploads/${req.file.filename}`,
     });
     await addProduct.save();
-    res.status(200).json({ addProduct, message: "Product Added !" });
+    res.status(200).send({ addProduct, message: "Product Added !" });
   } catch (error) {
-    res.status(401).json({ message: "Product Not Added!" });
+    res.status(401).send({ message: "Product Not Added!" });
   }
 }
 

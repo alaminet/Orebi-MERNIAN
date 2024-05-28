@@ -10,6 +10,9 @@ const viewProductController = require("../../controllers/viewProductController")
 const categoryStatusController = require("../../controllers/CategoryStatusController");
 const deleteCategoryController = require("../../controllers/deleteCategoryController");
 const editCategoryController = require("../../controllers/editCategoryController");
+const subCategoryStatusController = require("../../controllers/subCategoryStatusController");
+const deleteSubCategoryController = require("../../controllers/deleteSubCategoryController");
+const editSubCategoryController = require("../../controllers/eidtSubCategoryController");
 
 const route = express.Router();
 
@@ -38,5 +41,8 @@ route.delete("/categorydelete/:id", secureAPI, deleteCategoryController);
 
 route.get("/catlist", secureAPI, viewCategoryController);
 route.get("/subcatlist", secureAPI, viewSubCategoryController);
+route.post("/subcategorystatus", secureAPI, subCategoryStatusController);
+route.delete("/subcategorydelete/:id", secureAPI, deleteSubCategoryController);
+route.post("/editsubcategory", secureAPI, editSubCategoryController);
 
 module.exports = route;

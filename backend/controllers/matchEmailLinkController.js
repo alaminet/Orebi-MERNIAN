@@ -17,9 +17,9 @@ async function matchEmailLinkController(req, res) {
       { new: true }
     );
     matchEmail.save();
-    res.status(200).json({ matchEmail, message: "OTP Matched" });
+    res.status(200).send({ matchEmail, message: "OTP Matched" });
   } else {
-    res.status(401).json({ message: "invalid Email, Try again!" });
+    res.status(401).send({ message: "invalid Email, Try again!" });
   }
 }
 

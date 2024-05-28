@@ -18,10 +18,10 @@ async function matchForgotPassController(req, res) {
         { new: true }
       );
       updatePass.save();
-      res.status(200).json({ message: "Password Updated" });
+      res.status(200).send({ message: "Password Updated" });
     });
   } else {
-    res.status(401).json({ message: "invalid Email, Try again!" });
+    res.status(401).send({ message: "invalid Email, Try again!" });
   }
 }
 

@@ -11,9 +11,9 @@ async function matchOTPController(req, res) {
       { new: true }
     );
     removeOTP.save();
-    res.status(200).json({ removeOTP, message: "OTP Matched" });
+    res.status(200).send({ removeOTP, message: "OTP Matched" });
   } else {
-    res.status(401).json({ message: "Wrong OTP, Try again!" });
+    res.status(401).send({ message: "Wrong OTP, Try again!" });
   }
 }
 

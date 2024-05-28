@@ -29,9 +29,9 @@ async function resendVefityController(req, res) {
         sendEmail(email, otp, token, otpTemplate);
       });
 
-      res.status(200).json({ message: "Link Send to your mail" });
+      res.status(200).send({ message: "Link Send to your mail" });
     } else {
-      res.status(401).json({ message: "Already You are verifyed" });
+      res.status(401).send({ message: "Already You are verifyed" });
     }
   }
 }

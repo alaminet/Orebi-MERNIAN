@@ -1,10 +1,10 @@
-const Category = require("../model/categoryModel");
+const SubCategory = require("../model/subCategoryModel");
 
-async function categoryStatusController(req, res) {
+async function subCategoryStatusController(req, res) {
   const { id, status } = req.body;
 
   try {
-    const CatStatusUp = await Category.findByIdAndUpdate(
+    const SubCatStatusUp = await SubCategory.findByIdAndUpdate(
       id,
       {
         status:
@@ -16,10 +16,10 @@ async function categoryStatusController(req, res) {
       },
       { new: true }
     );
-    res.status(200).send({ CatStatusUp, message: "Category Updated !" });
+    res.status(200).send({ SubCatStatusUp, message: "Sub-Category Updated !" });
   } catch (error) {
     res.status(401).send({ message: "Not Updated !" });
   }
 }
 
-module.exports = categoryStatusController;
+module.exports = subCategoryStatusController;

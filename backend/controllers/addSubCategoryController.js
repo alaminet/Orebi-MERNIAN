@@ -8,14 +8,14 @@ async function addCategoryController(req, res) {
   });
 
   if (existingSubCategory.length > 0) {
-    res.status(401).json({ message: "Sub-Category Allready Exist!" });
+    res.status(401).send({ message: "Sub-Category Allready Exist!" });
   } else {
     const addSubCategory = await new SubCategory({
       name: name.toLowerCase().trim(),
       categoryID: categoryID,
     });
     await addSubCategory.save();
-    res.status(200).json({ message: "Sub-Category Added !" });
+    res.status(200).send({ message: "Sub-Category Added !" });
   }
 }
 

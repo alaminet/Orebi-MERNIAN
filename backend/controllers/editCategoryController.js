@@ -7,13 +7,13 @@ async function editCategoryController(req, res) {
     const catEdit = await Category.findByIdAndUpdate(
       id,
       {
-        name: name,
+        name: name.toLowerCase().trim(),
       },
       { new: true }
     );
-    res.status(200).json({ catEdit, message: "Category Edited !" });
+    res.status(200).send({ catEdit, message: "Category Edited !" });
   } catch (error) {
-    res.status(401).json({ message: "Not Edited !" });
+    res.status(401).send({ message: "Not Edited !" });
   }
 }
 

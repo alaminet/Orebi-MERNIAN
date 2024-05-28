@@ -21,9 +21,9 @@ async function forgotPassController(req, res) {
       forgotPassEmail(email, token, forgotPassTemplate);
     });
 
-    res.status(200).json({ message: "Link Send to your mail" });
+    res.status(200).send({ message: "Link Send to your mail" });
   } else {
-    res.status(401).json({ message: "Email Not matched, Try again!" });
+    res.status(401).send({ message: "Email Not matched, Try again!" });
   }
 }
 

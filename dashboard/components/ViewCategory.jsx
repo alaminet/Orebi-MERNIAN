@@ -22,7 +22,6 @@ const ViewCategory = () => {
   const [editForm] = Form.useForm();
   const [catList, setCatList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editCat, setEditCat] = useState();
 
   // Status Update
   const handleStatus = async (values) => {
