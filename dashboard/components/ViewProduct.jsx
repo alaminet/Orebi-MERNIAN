@@ -253,7 +253,7 @@ const ViewProduct = () => {
           ckdiscription: item.discription,
           discriptions: newDiscription,
           image: `http://localhost:8000${item.image}`,
-          status: item.status,
+          status: item.status.charAt(0).toUpperCase() + item.status.slice(1),
           action: item,
         });
       });
