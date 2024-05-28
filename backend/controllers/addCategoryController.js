@@ -7,13 +7,13 @@ async function addCategoryController(req, res) {
   });
 
   if (existingCategory.length > 0) {
-    res.status(401).json({ message: "Category Allready Exist!" });
+    res.status(401).send({ message: "Category Allready Exist!" });
   } else {
     const addCategory = await new Category({
       name: name.toLowerCase().trim(),
     });
     await addCategory.save();
-    res.status(200).json({ message: "Category Added !" });
+    res.status(200).send({ message: "Category Added !" });
   }
 }
 
