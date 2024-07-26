@@ -31,26 +31,28 @@ const ProductCard = ({ data }) => {
 
   return (
     <>
-      <Card style={{ overflow: "hidden", width: "350px" }}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Image
-            alt="cardImage"
-            src={`http://localhost:8000${data?.image}`}
-            width={200}
-            height={200}
-            loading="lazy"
-            priority={false}
-            objectFit="cover"
-          />
-        </div>
-        <Card.Body>
-          <Card.Title>{data?.title}</Card.Title>
-          <div dangerouslySetInnerHTML={{ __html: newDiscription }}></div>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </Card.Footer>
-      </Card>
+      <Col xs={3}>
+        <Card style={{ overflow: "hidden" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Image
+              alt="cardImage"
+              src={`http://localhost:8000${data?.image}`}
+              width={200}
+              height={200}
+            //   loading="lazy"
+              priority={true}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <Card.Body>
+            <Card.Title>{data?.title}</Card.Title>
+            <div dangerouslySetInnerHTML={{ __html: newDiscription }}></div>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </Card.Footer>
+        </Card>
+      </Col>
     </>
   );
 };
