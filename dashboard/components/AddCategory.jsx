@@ -6,6 +6,7 @@ const AddCategory = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
+  const [catform] = Form.useForm();
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -28,6 +29,7 @@ const AddCategory = () => {
       setMsgType("success");
       setTimeout(() => {
         setMsg("");
+        catform.resetFields();
       }, 1500);
     } catch (error) {
       console.log(error);
@@ -52,6 +54,7 @@ const AddCategory = () => {
         >
           <div>
             <Form
+              form={catform}
               name="categoryForm"
               labelCol={{
                 span: 10,

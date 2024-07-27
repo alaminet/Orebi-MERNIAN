@@ -1,13 +1,13 @@
-import React, { useState, Component } from "react";
-import { Flex, Button, Form, message, Input, Alert, Upload } from "antd";
+import React, { useState } from "react";
+import { Flex, Button, Form, message, Input, Alert } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import ImgCrop from "antd-img-crop";
 import ImageUpload from "./ImageUpload";
 
 const AddProduct = () => {
+  const [productform] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
@@ -38,6 +38,8 @@ const AddProduct = () => {
       setMsgType("success");
       setTimeout(() => {
         setMsg("");
+        productform.resetFields();
+        setFileList([]);
       }, 1500);
     } catch (error) {
       console.log(error);
@@ -63,7 +65,8 @@ const AddProduct = () => {
         >
           <div>
             <Form
-              name="productForm"
+              form={productform}
+              name="products"
               labelCol={{
                 span: 4,
               }}

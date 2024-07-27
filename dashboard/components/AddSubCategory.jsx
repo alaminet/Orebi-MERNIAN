@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Button, Form, Input, Alert, Select } from "antd";
+import { Flex, Button, Form, Input, Alert, Select, message } from "antd";
 import axios from "axios";
 
 const AddSubCategory = () => {
+  const [subcatform] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [msgType, setMsgType] = useState("");
   const [catList, setCatList] = useState([]);
   const [catSelect, setCatSelect] = useState("");
 
@@ -38,13 +37,12 @@ const AddSubCategory = () => {
         }
       );
       setLoadings(false);
-      setMsg(data.data.message);
-      setMsgType("success");
+      message.success(data.data.message);
+      subcatform.resetFields();
     } catch (error) {
       console.log(error);
       setLoadings(false);
-      setMsg(error.response.data.message);
-      setMsgType("error");
+      message.error(error.response.data.message);
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -75,7 +73,6 @@ const AddSubCategory = () => {
   }, []);
   return (
     <>
-      {msg && <Alert message={msg} type={msgType} showIcon closable />}
       <div>
         <Flex
           gap="middle"
@@ -86,6 +83,7 @@ const AddSubCategory = () => {
         >
           <div>
             <Form
+              form={subcatform}
               name="basic"
               labelCol={{
                 span: 10,
