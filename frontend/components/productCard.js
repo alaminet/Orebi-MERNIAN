@@ -39,7 +39,7 @@ const ProductCard = ({ data }) => {
               src={`http://localhost:8000${data?.image}`}
               width={200}
               height={200}
-            //   loading="lazy"
+              //   loading="lazy"
               priority={true}
               style={{ objectFit: "cover" }}
             />

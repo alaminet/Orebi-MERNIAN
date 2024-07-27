@@ -4,6 +4,8 @@ import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ImgCrop from "antd-img-crop";
+import ImageUpload from "./ImageUpload";
 
 const AddProduct = () => {
   const [loadings, setLoadings] = useState(false);
@@ -11,10 +13,10 @@ const AddProduct = () => {
   const [msgType, setMsgType] = useState("");
   const [discription, setDiscription] = useState("");
   const [imgs, setImgs] = useState({});
+  const [fileList, setFileList] = useState([]);
 
   const onFinish = async (values) => {
     // console.log("Success:", values);
-    console.log(discription);
     try {
       setLoadings(true);
       const data = await axios.post(
@@ -22,7 +24,7 @@ const AddProduct = () => {
         {
           title: values.title,
           discription: discription,
-          prductImg: imgs,
+          prductImg: fileList[0]?.originFileObj,
         },
         {
           headers: {
@@ -47,6 +49,7 @@ const AddProduct = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <>
       {msg && <Alert message={msg} type={msgType} showIcon closable />}
@@ -117,19 +120,20 @@ const AddProduct = () => {
               </Form.Item>
               <Form.Item
                 label="Product Image"
-                name="image"
-                rules={[
-                  {
-                    required: true,
-                    message: "Product Image",
-                  },
-                ]}
+                // name="image"
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Product Image",
+                //   },
+                // ]}
               >
-                <Input
+                {/* <Input
                   onChange={(e) => setImgs(e.target.files[0])}
                   type="file"
                   icon={<UploadOutlined />}
-                />
+                /> */}
+                <ImageUpload fileList={fileList} setFileList={setFileList} />
               </Form.Item>
 
               <Form.Item

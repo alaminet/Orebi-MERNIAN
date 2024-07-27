@@ -21,8 +21,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.get("/", upload.single("avatar"), function (req, res) {
+app.post("/", upload.single("avatar"), function (req, res) {
   res.send(`/uploads/images/${req.file.filename}`);
+  setTimeout(() => {
+    const fs = require("fs");
+    const filePath = `./uploads/images/${req.file.filename}`; // Replace with the actual path to your file
+    // Remove the file
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(`Error removing file: ${err}`);
+        return;
+      }
+      console.log(`File ${filePath} has been successfully removed.`);
+    });
+  }, 3000);
 });
 
 // show static file

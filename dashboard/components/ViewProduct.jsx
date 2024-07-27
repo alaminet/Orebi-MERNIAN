@@ -26,6 +26,7 @@ const ViewProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [discription, setDiscription] = useState("");
 
+  // console.log(catList);
   // Status Update
   const handleStatus = async (values) => {
     // console.log(values.action._id, values.action.status);
@@ -154,7 +155,12 @@ const ViewProduct = () => {
       render: (_, record) => (
         <div
           contentEditable="true"
-          dangerouslySetInnerHTML={{ __html: record.discriptions }}
+          dangerouslySetInnerHTML={{
+            __html:
+              record.discriptions !== ""
+                ? record.discriptions
+                : record.ckdiscription,
+          }}
         ></div>
       ),
     },
