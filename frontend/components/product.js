@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "./productCard";
+import { Container } from "react-bootstrap";
 
 async function getData() {
   const res = await fetch(
@@ -9,7 +10,7 @@ async function getData() {
         Authorization: "CAt7p0qqwYALAIY",
       },
     },
-    { next: { revalidate: 1 } }
+    { cache: "no-store" }
   );
   return res.json();
 }
@@ -18,13 +19,15 @@ const Product = async () => {
   console.log(data);
   return (
     <>
-      <div style={{ display: "flex", gap: "14px" }}>
-        {data?.map((item, i) => {
-          if (item.status === "approve") {
-            return <ProductCard key={i} data={item} />;
-          }
-        })}
-      </div>
+      <Container>
+        <div style={{ display: "flex", gap: "14px" }}>
+          {data?.map((item, i) => {
+            if (item.status) {
+              return <ProductCard key={i} data={item} />;
+            }
+          })}
+        </div>
+      </Container>
     </>
   );
 };
