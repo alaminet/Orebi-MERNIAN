@@ -16,6 +16,7 @@ const editSubCategoryController = require("../../controllers/eidtSubCategoryCont
 const productStatusController = require("../../controllers/productStatusController");
 const deleteProductController = require("../../controllers/deleteProductController");
 const editProductController = require("../../controllers/editProductController");
+const viewCatCascaderController = require("../../controllers/viewCatCascaderController");
 
 const route = express.Router();
 
@@ -33,19 +34,25 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 //   end multer setup
 
-route.post("/addproduct", upload.single("prductImg"), addProductController);
+route.post("/addproduct", upload("prductImg"), addProductController);
 route.get("/viewproduct", secureAPI, viewProductController);
 route.post("/productstatus", secureAPI, productStatusController);
 route.delete("/productdelete/:id", secureAPI, deleteProductController);
 route.post("/editproduct", secureAPI, editProductController);
 
-route.post("/addcategory", secureAPI,upload.single("catImg"), addCategoryController);
+route.post(
+  "/addcategory",
+  secureAPI,
+  upload.single("catImg"),
+  addCategoryController
+);
 route.post("/addsubcategory", secureAPI, addSubCategoryController);
 route.post("/categorystatus", secureAPI, categoryStatusController);
 route.post("/editcategory", secureAPI, editCategoryController);
 route.delete("/categorydelete/:id", secureAPI, deleteCategoryController);
 
 route.get("/catlist", secureAPI, viewCategoryController);
+route.post("/catcascader/:id", viewCatCascaderController);
 route.get("/subcatlist", secureAPI, viewSubCategoryController);
 route.post("/subcategorystatus", secureAPI, subCategoryStatusController);
 route.delete("/subcategorydelete/:id", secureAPI, deleteSubCategoryController);

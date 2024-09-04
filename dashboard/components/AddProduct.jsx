@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Flex, Button, Form, Input, Alert } from "antd";
+import React, { useEffect, useState } from "react";
+import { Flex, Button, Form, Input, Alert, Cascader, Select } from "antd";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -12,6 +12,8 @@ const AddProduct = () => {
   const [msgType, setMsgType] = useState("");
   const [discription, setDiscription] = useState("");
   const [slugVal, setSlugVal] = useState("");
+  const [catList, setCatList] = useState([]);
+  const [subCatList, setSubCatList] = useState([]);
   const [fileList, setFileList] = useState([]);
 
   const handleTitleChange = (e) => {
@@ -19,41 +21,92 @@ const AddProduct = () => {
     setSlugVal(titleVal.split(" ").join("-").toLowerCase());
   };
   const onFinish = async (values) => {
-    // console.log("Success:", values);
-    try {
-      setLoadings(true);
-      const data = await axios.post(
-        "http://localhost:8000/v1/api/product/addproduct",
-        {
-          title: values.title,
-          discription: discription,
-          prductImg: fileList[0]?.originFileObj,
-        },
-        {
-          headers: {
-            Authorization: "CAt7p0qqwYALAIY",
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setLoadings(false);
-      setMsg(data.data.message);
-      setMsgType("success");
-      setTimeout(() => {
-        setMsg("");
-        productform.resetFields();
-        setFileList([]);
-      }, 1500);
-    } catch (error) {
-      console.log(error);
-      setLoadings(false);
-      setMsg(error.response.data.message);
-      setMsgType("error");
-    }
+    console.log("Success:", values);
+    // try {
+    //   setLoadings(true);
+    //   const data = await axios.post(
+    //     "http://localhost:8000/v1/api/product/addproduct",
+    //     {
+    //       title: values.title,
+    //       discription: discription,
+    //       prductImg: fileList[0]?.originFileObj,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: "CAt7p0qqwYALAIY",
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   );
+    //   setLoadings(false);
+    //   setMsg(data.data.message);
+    //   setMsgType("success");
+    //   setTimeout(() => {
+    //     setMsg("");
+    //     productform.resetFields();
+    //     setFileList([]);
+    //   }, 1500);
+    // } catch (error) {
+    //   console.log(error);
+    //   setLoadings(false);
+    //   setMsg(error.response.data.message);
+    //   setMsgType("error");
+    // }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  // CaseCade Category
+  // Collect All Category
+  async function allCat() {
+    const catList = await axios.get(
+      "http://localhost:8000/v1/api/product/catlist",
+      {
+        headers: {
+          Authorization: "CAt7p0qqwYALAIY",
+        },
+      }
+    );
+    let allCatList = [];
+    catList?.data.map((item, i) => {
+      allCatList.push({
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+        value: item._id,
+      });
+    });
+    setCatList(allCatList);
+  }
+
+  useEffect(() => {
+    allCat();
+  }, []);
+
+  const onChangeCat = async (value) => {
+    try {
+      const SubList = await axios.post(
+        `http://localhost:8000/v1/api/product/catcascader/${value}`,
+        {
+          headers: {
+            Authorization: "CAt7p0qqwYALAIY",
+          },
+        }
+      );
+
+      let allSubCatList = [];
+      SubList?.data.map((item, i) => {
+        allSubCatList.push({
+          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+          value: item._id,
+        });
+      });
+      setSubCatList(allSubCatList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(fileList);
 
   return (
     <>
@@ -98,6 +151,23 @@ const AddProduct = () => {
               </Form.Item>
               <Form.Item label="Slug" name="slug">
                 <Input disabled placeholder={slugVal} />
+              </Form.Item>
+              <Form.Item label="Category" name="Cat">
+                <Select
+                  showSearch
+                  placeholder="Select a Category"
+                  optionFilterProp="label"
+                  onChange={onChangeCat}
+                  options={catList}
+                />
+              </Form.Item>
+              <Form.Item label="Sub-Category" name="subCat">
+                <Select
+                  showSearch
+                  placeholder="Select Sub-Category"
+                  optionFilterProp="label"
+                  options={subCatList}
+                />
               </Form.Item>
               <Form.Item
                 label="Product Discription"
