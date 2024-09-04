@@ -88,7 +88,11 @@ const AddCategory = () => {
                 <Input />
               </Form.Item>
               <Form.Item label="Category Image">
-                <ImageUpload fileList={fileList} setFileList={setFileList} />
+                <ImageUpload
+                  fileList={fileList}
+                  setFileList={setFileList}
+                  fileAccept={1}
+                />
               </Form.Item>
               <Form.Item
                 wrapperCol={{

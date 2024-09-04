@@ -11,8 +11,13 @@ const AddProduct = () => {
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [discription, setDiscription] = useState("");
+  const [slugVal, setSlugVal] = useState("");
   const [fileList, setFileList] = useState([]);
 
+  const handleTitleChange = (e) => {
+    let titleVal = e.target.value;
+    setSlugVal(titleVal.split(" ").join("-").toLowerCase());
+  };
   const onFinish = async (values) => {
     // console.log("Success:", values);
     try {
@@ -79,6 +84,7 @@ const AddProduct = () => {
               autoComplete="off"
             >
               <Form.Item
+                onChange={handleTitleChange}
                 label="Product Title"
                 name="title"
                 rules={[
@@ -89,6 +95,9 @@ const AddProduct = () => {
                 ]}
               >
                 <Input />
+              </Form.Item>
+              <Form.Item label="Slug" name="slug">
+                <Input disabled placeholder={slugVal} />
               </Form.Item>
               <Form.Item
                 label="Product Discription"
@@ -109,7 +118,11 @@ const AddProduct = () => {
                 />
               </Form.Item>
               <Form.Item label="Product Image">
-                <ImageUpload fileList={fileList} setFileList={setFileList} />
+                <ImageUpload
+                  fileList={fileList}
+                  setFileList={setFileList}
+                  fileAccept={5}
+                />
               </Form.Item>
 
               <Form.Item

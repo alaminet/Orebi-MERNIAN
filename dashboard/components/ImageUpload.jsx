@@ -10,7 +10,7 @@ const getSrcFromFile = (file) => {
   });
 };
 
-const ImageUpload = ({ fileList, setFileList }) => {
+const ImageUpload = ({ fileList, setFileList,fileAccept }) => {
   const onChange = ({ fileList }) => {
     setFileList(fileList);
   };
@@ -38,7 +38,7 @@ const ImageUpload = ({ fileList, setFileList }) => {
         onChange={onChange}
         onPreview={onPreview}
       >
-        {fileList.length < 1 && "+ Upload"}
+        {fileList.length < fileAccept && "+ Upload"}
       </Upload>
     </ImgCrop>
   );
