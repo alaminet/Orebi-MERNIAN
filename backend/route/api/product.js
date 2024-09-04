@@ -39,7 +39,7 @@ route.post("/productstatus", secureAPI, productStatusController);
 route.delete("/productdelete/:id", secureAPI, deleteProductController);
 route.post("/editproduct", secureAPI, editProductController);
 
-route.post("/addcategory", secureAPI, addCategoryController);
+route.post("/addcategory", secureAPI,upload.single("catImg"), addCategoryController);
 route.post("/addsubcategory", secureAPI, addSubCategoryController);
 route.post("/categorystatus", secureAPI, categoryStatusController);
 route.post("/editcategory", secureAPI, editCategoryController);

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Flex, Button, Form, Input, Alert } from "antd";
 import axios from "axios";
+import ImageUpload from "./ImageUpload";
 
 const AddCategory = () => {
   const [loadings, setLoadings] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [catform] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
     try {
       setLoadings(true);
@@ -17,10 +19,12 @@ const AddCategory = () => {
         "http://localhost:8000/v1/api/product/addcategory",
         {
           name: values.name,
+          catImg: fileList[0]?.originFileObj,
         },
         {
           headers: {
             Authorization: "CAt7p0qqwYALAIY",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -30,6 +34,7 @@ const AddCategory = () => {
       setTimeout(() => {
         setMsg("");
         catform.resetFields();
+        setFileList([]);
       }, 1500);
     } catch (error) {
       console.log(error);
@@ -82,7 +87,9 @@ const AddCategory = () => {
               >
                 <Input />
               </Form.Item>
-
+              <Form.Item label="Category Image">
+                <ImageUpload fileList={fileList} setFileList={setFileList} />
+              </Form.Item>
               <Form.Item
                 wrapperCol={{
                   offset: 10,

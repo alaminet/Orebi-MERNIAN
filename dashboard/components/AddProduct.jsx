@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Button, Form, message, Input, Alert } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Flex, Button, Form, Input, Alert } from "antd";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -12,7 +11,6 @@ const AddProduct = () => {
   const [msg, setMsg] = useState("");
   const [msgType, setMsgType] = useState("");
   const [discription, setDiscription] = useState("");
-  const [imgs, setImgs] = useState({});
   const [fileList, setFileList] = useState([]);
 
   const onFinish = async (values) => {
@@ -76,7 +74,6 @@ const AddProduct = () => {
               initialValues={{
                 remember: true,
               }}
-              // style={{ width: "800px" }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
@@ -106,36 +103,12 @@ const AddProduct = () => {
                 <CKEditor
                   editor={ClassicEditor}
                   data=""
-                  // onReady={(editor) => {
-                  //   // You can store the "editor" and use when it is needed.
-                  //   console.log("Editor is ready to use!", editor);
-                  // }}
                   onChange={(event, editor) => {
                     setDiscription(editor.getData());
                   }}
-                  // onBlur={(event, editor) => {
-                  //   console.log("Blur.", editor);
-                  // }}
-                  // onFocus={(event, editor) => {
-                  //   console.log("Focus.", editor);
-                  // }}
                 />
               </Form.Item>
-              <Form.Item
-                label="Product Image"
-                // name="image"
-                // rules={[
-                //   {
-                //     required: true,
-                //     message: "Product Image",
-                //   },
-                // ]}
-              >
-                {/* <Input
-                  onChange={(e) => setImgs(e.target.files[0])}
-                  type="file"
-                  icon={<UploadOutlined />}
-                /> */}
+              <Form.Item label="Product Image">
                 <ImageUpload fileList={fileList} setFileList={setFileList} />
               </Form.Item>
 

@@ -2,6 +2,7 @@ const Category = require("../model/categoryModel");
 
 async function addCategoryController(req, res) {
   const { name } = req.body;
+
   const existingCategory = await Category.find({
     name: name.toLowerCase().trim(),
   });
@@ -11,6 +12,7 @@ async function addCategoryController(req, res) {
   } else {
     const addCategory = await new Category({
       name: name.toLowerCase().trim(),
+      image: `/uploads/${req.file.filename}`,
     });
     await addCategory.save();
     res.status(200).send({ message: "Category Added !" });
