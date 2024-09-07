@@ -21,37 +21,48 @@ const AddProduct = () => {
     setSlugVal(titleVal.split(" ").join("-").toLowerCase());
   };
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    // try {
-    //   setLoadings(true);
-    //   const data = await axios.post(
-    //     "http://localhost:8000/v1/api/product/addproduct",
-    //     {
-    //       title: values.title,
-    //       discription: discription,
-    //       prductImg: fileList[0]?.originFileObj,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: "CAt7p0qqwYALAIY",
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   );
-    //   setLoadings(false);
-    //   setMsg(data.data.message);
-    //   setMsgType("success");
-    //   setTimeout(() => {
-    //     setMsg("");
-    //     productform.resetFields();
-    //     setFileList([]);
-    //   }, 1500);
-    // } catch (error) {
-    //   console.log(error);
-    //   setLoadings(false);
-    //   setMsg(error.response.data.message);
-    //   setMsgType("error");
-    // }
+    // console.log("Success:", values);
+    // title, discription, slug, categoryId, subCategoryId
+
+    let imgArr = [];
+    fileList.map((item) => {
+      imgArr.push({ imagePath: item.response });
+    });
+
+    try {
+      setLoadings(true);
+      const data = await axios.post(
+        "http://localhost:8000/v1/api/product/addproduct",
+        {
+          title: values.title,
+          discription: discription,
+          slug: slugVal,
+          categoryId: values.Cat,
+          subCategoryId: values.subCat,
+          // uploadImages: fileList[0].originFileObj,
+          images: [...imgArr],
+        },
+        {
+          headers: {
+            Authorization: "CAt7p0qqwYALAIY",
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setLoadings(false);
+      setMsg(data.data.message);
+      setMsgType("success");
+      setTimeout(() => {
+        setMsg("");
+        productform.resetFields();
+        setFileList([]);
+      }, 1500);
+    } catch (error) {
+      console.log(error);
+      setLoadings(false);
+      setMsg(error.response.data.message);
+      setMsgType("error");
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -105,8 +116,6 @@ const AddProduct = () => {
       console.log(error);
     }
   };
-
-  console.log(fileList);
 
   return (
     <>
@@ -187,7 +196,8 @@ const AddProduct = () => {
                   }}
                 />
               </Form.Item>
-              <Form.Item label="Product Image">
+              <Form.Item label="Product Image" name="images">
+                {/* <input type="file" multiple /> */}
                 <ImageUpload
                   fileList={fileList}
                   setFileList={setFileList}

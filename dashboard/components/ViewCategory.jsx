@@ -176,7 +176,7 @@ const ViewCategory = () => {
       setCatList(allCatList);
     }
     allCat();
-  }, [handleStatus]);
+  }, [handleStatus, handleDelete]);
   return (
     <>
       <div>

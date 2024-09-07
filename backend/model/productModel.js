@@ -4,7 +4,16 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   title: String,
   discription: String,
-  image: String,
+  image: [{ imagePath: String }],
+  slug: String,
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+  },
+  subCategoryId: {
+    type: Schema.Types.ObjectId,
+    ref: "SubCategory",
+  },
   status: {
     type: String,
     enum: ["waiting", "approve", "reject"],

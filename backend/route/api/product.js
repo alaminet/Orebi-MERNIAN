@@ -17,6 +17,7 @@ const productStatusController = require("../../controllers/productStatusControll
 const deleteProductController = require("../../controllers/deleteProductController");
 const editProductController = require("../../controllers/editProductController");
 const viewCatCascaderController = require("../../controllers/viewCatCascaderController");
+const imageUploadController = require("../../controllers/imageUploadController");
 
 const route = express.Router();
 
@@ -34,7 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 //   end multer setup
 
-route.post("/addproduct", upload("prductImg"), addProductController);
+route.post("/addproduct", secureAPI, addProductController);
 route.get("/viewproduct", secureAPI, viewProductController);
 route.post("/productstatus", secureAPI, productStatusController);
 route.delete("/productdelete/:id", secureAPI, deleteProductController);
