@@ -6,6 +6,7 @@ import {
   Form,
   Input,
   Modal,
+  Select,
   Space,
   Table,
   Tooltip,
@@ -20,6 +21,7 @@ import {
 
 const ViewSubCategory = () => {
   const [editForm] = Form.useForm();
+  const [subcatList, setSubCatList] = useState([]);
   const [catList, setCatList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -68,13 +70,30 @@ const ViewSubCategory = () => {
   };
 
   // Category Edit
-  const handleEdit = (values) => {
-    // console.log(values);
+  const handleEdit = async (values) => {
+    console.log(values);
     setIsModalOpen(true);
     editForm.setFieldsValue({
       id: values.action._id,
       name: values.action.name,
+      category: values.action.categoryID?._id,
     });
+    const catList = await axios.get(
+      "http://localhost:8000/v1/api/product/catlist",
+      {
+        headers: {
+          Authorization: "CAt7p0qqwYALAIY",
+        },
+      }
+    );
+    let allCatList = [];
+    catList.data.map((item, i) => {
+      allCatList.push({
+        value: item._id,
+        label: item.name,
+      });
+    });
+    setCatList(allCatList);
   };
   const onFinish = async (values) => {
     // console.log(values);
@@ -85,6 +104,7 @@ const ViewSubCategory = () => {
         {
           id: values.id,
           name: values.name,
+          category: values.category,
         },
         {
           headers: {
@@ -174,21 +194,20 @@ const ViewSubCategory = () => {
           dataIndex: ++i,
           subcategory: item.name.charAt(0).toUpperCase() + item.name.slice(1),
           category:
-            item.categoryID.name.charAt(0).toUpperCase() +
-            item.categoryID.name.slice(1),
-          status: item.status.charAt(0).toUpperCase() +
-          item.status.slice(1),
+            item.categoryID?.name.charAt(0).toUpperCase() +
+            item.categoryID?.name.slice(1),
+          status: item.status.charAt(0).toUpperCase() + item.status.slice(1),
           action: item,
         });
       });
-      setCatList(allSubCatList);
+      setSubCatList(allSubCatList);
     }
     allSubCat();
   }, [handleStatus]);
   return (
     <>
       <div>
-        <Table columns={columns} dataSource={catList} />
+        <Table columns={columns} dataSource={subcatList} />
       </div>
       <div>
         <Modal
@@ -214,6 +233,17 @@ const ViewSubCategory = () => {
               ]}
             >
               <Input placeholder="Category Name" />
+            </Form.Item>
+            <Form.Item name="category">
+              <Select
+                // defaultValue={category}
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="label"
+                // onChange={onChange}
+                // onSearch={onSearch}
+                options={catList}
+              />
             </Form.Item>
             <Form.Item name="id"></Form.Item>
             <Form.Item>
