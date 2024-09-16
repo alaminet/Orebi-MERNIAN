@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   title: String,
   discription: String,
+  salePrice: Number,
+  regularPrice: Number,
+  costPrice: Number,
+  quantity: Number,
   image: [{ imagePath: String }],
   slug: String,
   categoryId: {

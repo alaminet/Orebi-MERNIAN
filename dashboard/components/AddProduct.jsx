@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Button, Form, Input, Alert, Cascader, Select } from "antd";
+import {
+  Flex,
+  Button,
+  Form,
+  Input,
+  Alert,
+  Cascader,
+  Select,
+  InputNumber,
+} from "antd";
 import axios from "axios";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -21,7 +30,7 @@ const AddProduct = () => {
     setSlugVal(titleVal.split(" ").join("-").toLowerCase());
   };
   const onFinish = async (values) => {
-    // console.log("Success:", values);
+    console.log("Success:", values);
     // title, discription, slug, categoryId, subCategoryId
 
     let imgArr = [];
@@ -37,6 +46,10 @@ const AddProduct = () => {
           title: values.title,
           discription: discription,
           slug: slugVal,
+          salePrice: values.salePrice,
+          regularPrice: values.regularPrice,
+          costPrice: values.costPrice,
+          quantity: values.quantity,
           categoryId: values.Cat,
           subCategoryId: values.subCat,
           // uploadImages: fileList[0].originFileObj,
@@ -133,10 +146,10 @@ const AddProduct = () => {
               form={productform}
               name="products"
               labelCol={{
-                span: 4,
+                span: 5,
               }}
               wrapperCol={{
-                span: 20,
+                span: 19,
               }}
               initialValues={{
                 remember: true,
@@ -204,11 +217,36 @@ const AddProduct = () => {
                   fileAccept={5}
                 />
               </Form.Item>
-
+              <Form.Item label="Price">
+                <Form.Item
+                  label="Sale"
+                  name="salePrice"
+                  style={{ display: "inline-block", width: "calc(33% - 8px)" }}
+                >
+                  <InputNumber placeholder="Sale Price" />
+                </Form.Item>
+                <Form.Item
+                  label="Regular"
+                  name="regularPrice"
+                  style={{ display: "inline-block", width: "calc(33% - 8px)" }}
+                >
+                  <InputNumber placeholder="Regular Price" />
+                </Form.Item>
+                <Form.Item
+                  label="Cost"
+                  name="costPrice"
+                  style={{ display: "inline-block", width: "calc(33% - 8px)" }}
+                >
+                  <InputNumber placeholder="Cost Price" />
+                </Form.Item>
+              </Form.Item>
+              <Form.Item label="Quantity" name="quantity">
+                <InputNumber placeholder="Quantity" />
+              </Form.Item>
               <Form.Item
                 wrapperCol={{
-                  offset: 4,
-                  span: 20,
+                  offset: 5,
+                  span: 19,
                 }}
                 style={{ marginBottom: "0px" }}
               >

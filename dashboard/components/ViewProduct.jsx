@@ -225,6 +225,8 @@ const ViewProduct = () => {
       );
       let prdListArr = [];
       productList?.data.map((item, i) => {
+        // console.log(item.image);
+
         let newDiscription = "";
         // console.log(item.discription);
         // Use a regular expression to find the oembed element in the HTML string
@@ -258,7 +260,7 @@ const ViewProduct = () => {
           title: item.title,
           ckdiscription: item.discription,
           discriptions: newDiscription,
-          image: `http://localhost:8000${item.image}`,
+          image: `http://localhost:5000${item.image[0].imagePath}`,
           status: item.status.charAt(0).toUpperCase() + item.status.slice(1),
           action: item,
         });

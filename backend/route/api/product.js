@@ -18,6 +18,7 @@ const deleteProductController = require("../../controllers/deleteProductControll
 const editProductController = require("../../controllers/editProductController");
 const viewCatCascaderController = require("../../controllers/viewCatCascaderController");
 const imageUploadController = require("../../controllers/imageUploadController");
+const viewSingleProductController = require("../../controllers/viewSingleProductController");
 
 const route = express.Router();
 
@@ -38,6 +39,7 @@ const upload = multer({ storage: storage });
 route.post("/addproduct", secureAPI, addProductController);
 route.get("/viewproduct", secureAPI, viewProductController);
 route.post("/productstatus", secureAPI, productStatusController);
+route.get("/singleproduct/:slug", secureAPI, viewSingleProductController);
 route.delete("/productdelete/:id", secureAPI, deleteProductController);
 route.post("/editproduct", secureAPI, editProductController);
 
