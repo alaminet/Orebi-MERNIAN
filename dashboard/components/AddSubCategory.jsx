@@ -62,10 +62,12 @@ const AddSubCategory = () => {
       );
       let allCatList = [];
       catList.data.map((item, i) => {
-        allCatList.push({
-          value: item._id,
-          label: item.name,
-        });
+        if (item.status === "approve") {
+          allCatList.push({
+            value: item._id,
+            label: item.name,
+          });
+        }
       });
       setCatList(allCatList);
     }

@@ -10,6 +10,7 @@ const productSchema = new Schema({
   quantity: Number,
   image: [{ imagePath: String }],
   slug: String,
+  proType: String,
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: "Category",

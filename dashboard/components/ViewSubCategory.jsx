@@ -87,11 +87,13 @@ const ViewSubCategory = () => {
       }
     );
     let allCatList = [];
-    catList.data.map((item, i) => {
-      allCatList.push({
-        value: item._id,
-        label: item.name,
-      });
+    catList.data.map((item) => {
+      if (item.status === "approve") {
+        allCatList.push({
+          value: item._id,
+          label: item.name,
+        });
+      }
     });
     setCatList(allCatList);
   };

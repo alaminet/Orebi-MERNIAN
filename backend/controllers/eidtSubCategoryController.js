@@ -2,8 +2,6 @@ const SubCategory = require("../model/subCategoryModel");
 
 async function editSubCategoryController(req, res) {
   const { id, name, category } = req.body;
-  console.log(category);
-
   try {
     const catEdit = await SubCategory.findByIdAndUpdate(
       id,

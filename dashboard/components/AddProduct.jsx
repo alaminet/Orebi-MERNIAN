@@ -30,7 +30,7 @@ const AddProduct = () => {
     setSlugVal(titleVal.split(" ").join("-").toLowerCase());
   };
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     // title, discription, slug, categoryId, subCategoryId
 
     let imgArr = [];
@@ -46,6 +46,7 @@ const AddProduct = () => {
           title: values.title,
           discription: discription,
           slug: slugVal,
+          proType: values.proType,
           salePrice: values.salePrice,
           regularPrice: values.regularPrice,
           costPrice: values.costPrice,
@@ -94,10 +95,12 @@ const AddProduct = () => {
     );
     let allCatList = [];
     catList?.data.map((item, i) => {
-      allCatList.push({
-        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        value: item._id,
-      });
+      if (item.status === "approve") {
+        allCatList.push({
+          value: item._id,
+          label: item.name,
+        });
+      }
     });
     setCatList(allCatList);
   }
@@ -174,22 +177,31 @@ const AddProduct = () => {
               <Form.Item label="Slug" name="slug">
                 <Input disabled placeholder={slugVal} />
               </Form.Item>
-              <Form.Item label="Category" name="Cat">
-                <Select
-                  showSearch
-                  placeholder="Select a Category"
-                  optionFilterProp="label"
-                  onChange={onChangeCat}
-                  options={catList}
-                />
-              </Form.Item>
-              <Form.Item label="Sub-Category" name="subCat">
-                <Select
-                  showSearch
-                  placeholder="Select Sub-Category"
-                  optionFilterProp="label"
-                  options={subCatList}
-                />
+
+              <Form.Item label="Category">
+                <Form.Item
+                  name="Cat"
+                  style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+                >
+                  <Select
+                    showSearch
+                    placeholder="Select a Category"
+                    optionFilterProp="label"
+                    onChange={onChangeCat}
+                    options={catList}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="subCat"
+                  style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+                >
+                  <Select
+                    showSearch
+                    placeholder="Select Sub-Category"
+                    optionFilterProp="label"
+                    options={subCatList}
+                  />
+                </Form.Item>
               </Form.Item>
               <Form.Item
                 label="Product Discription"
@@ -240,9 +252,49 @@ const AddProduct = () => {
                   <InputNumber placeholder="Cost Price" />
                 </Form.Item>
               </Form.Item>
-              <Form.Item label="Quantity" name="quantity">
-                <InputNumber placeholder="Quantity" />
+              <Form.Item>
+                <Form.Item
+                  label="Quantity"
+                  name="quantity"
+                  style={{ display: "inline-block", width: "calc(33% - 8px)" }}
+                >
+                  <InputNumber placeholder="Quantity" />
+                </Form.Item>
+                <Form.Item
+                  label="Product Type"
+                  name="proType"
+                  style={{ display: "inline-block", width: "calc(65% - 8px)" }}
+                >
+                  <Select
+                    showSearch
+                    placeholder="Select Sub-Category"
+                    optionFilterProp="label"
+                    options={[
+                      {
+                        label: "Default",
+                        value: "default",
+                      },
+                      {
+                        label: "Top",
+                        value: "top",
+                      },
+                      {
+                        label: "New",
+                        value: "new",
+                      },
+                      {
+                        label: "Featured",
+                        value: "featured",
+                      },
+                      {
+                        label: "Flash",
+                        value: "flash",
+                      },
+                    ]}
+                  />
+                </Form.Item>
               </Form.Item>
+
               <Form.Item
                 wrapperCol={{
                   offset: 5,

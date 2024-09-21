@@ -165,6 +165,11 @@ const ViewProduct = () => {
       ),
     },
     {
+      title: "Product Types",
+      dataIndex: "proType",
+      key: "proType",
+    },
+    {
       title: "Image",
       dataIndex: "image",
       key: "image",
@@ -257,11 +262,12 @@ const ViewProduct = () => {
         }
         prdListArr.push({
           dataIndex: ++i,
-          title: item.title,
-          ckdiscription: item.discription,
+          title: item?.title,
+          ckdiscription: item?.discription,
+          proType: item?.proType,
           discriptions: newDiscription,
-          image: `http://localhost:5000${item.image[0].imagePath}`,
-          status: item.status.charAt(0).toUpperCase() + item.status.slice(1),
+          image: `http://localhost:5000${item?.image[0].imagePath}`,
+          status: item?.status.charAt(0).toUpperCase() + item?.status.slice(1),
           action: item,
         });
       });
